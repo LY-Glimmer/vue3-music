@@ -8,13 +8,15 @@
 </template>
 
 <script setup>
-import { defineProps } from 'vue'
-defineProps({
-  title: {
-    tyep: String,
-    default: '加载中...'
-  }
-})
+import { defineExpose, ref } from 'vue'
+// 加载时的文本
+const title = ref('加载中...')
+// 设置加载时的文本
+const setTitle = (titleText) => {
+  title.value = titleText
+}
+// 暴露属性
+defineExpose({ setTitle })
 </script>
 
 <style lang="scss" scoped>

@@ -1,6 +1,6 @@
 <!-- 推荐页面组件 -->
 <template>
-  <div class='recommend' v-loading:[loadingText]="loading">
+  <div class='recommend' v-loading="loading">
     <Scroll class="recommend-content">
       <div>
         <div class="slider-wrapper">
@@ -41,14 +41,14 @@ const sliders = ref([])
 // 歌曲数据
 const albums = ref([])
 // loading的文本
-const loadingText = '正在加载中...'
+// const loadingText = '正在加载中...'
 // 获取数据
 const getRecommendData = async () => {
   const data = await getRecommend()
   sliders.value = data.sliders
   albums.value = data.albums
-  console.log('sliders:', sliders.value)
-  console.log('albums:', albums.value)
+  // console.log('sliders:', sliders.value)
+  // console.log('albums:', albums.value)
 }
 // 获取数据
 getRecommendData()

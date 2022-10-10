@@ -1,24 +1,15 @@
-# project-template
+# vue3-music
 
-## Project setup
+## 项目背景
 ```
-yarn install
+使用Vue3模仿qq音乐实现一个web音乐播放
 ```
-
-### Compiles and hot-reloads for development
+### 安装依赖 
+```
+yarn
+```
+###  运行项目
 ```
 yarn serve
 ```
-
-### Compiles and minifies for production
-```
-yarn build
-```
-
-### Lints and fixes files
-```
-yarn lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+为练习Vue3语法的项目。

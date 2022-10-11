@@ -28,10 +28,13 @@
 </template>
 
 <script setup>
-import { defineProps } from 'vue'
+import { defineProps, defineEmits } from 'vue'
 import Scroll from '@/components/Scroll/index'
 import { useFixed } from './use-fixed'
 import { useShortcut } from './use-shortcut.js'
+
+// 自定义事件
+const emit = defineEmits(['select'])
 const props = defineProps({
   data: {
     type: Array,
@@ -40,6 +43,9 @@ const props = defineProps({
     }
   }
 })
+const onItemClick = (singer) => {
+  emit('select', singer)
+}
 
 const {
   groupRef,

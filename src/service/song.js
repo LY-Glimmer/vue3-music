@@ -1,6 +1,6 @@
 // 歌曲
 import { get } from './base'
-
+// 获取歌曲的URL
 export function processSongs(songs) {
   if (!songs.length) {
     return Promise.resolve(songs)

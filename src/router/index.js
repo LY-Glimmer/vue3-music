@@ -1,14 +1,14 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 // 布局组件
 import layout from '@/layout'
-// 登录
-// import Login from '@/views/Login'
 // 用户
 import User from '@/views/User'
 // 推荐
 import Recommend from '@/views/Recommend'
 // 歌手
 import Singer from '@/views/Singer'
+// 歌手详情
+import SingerDetail from '@/views/Singer/pages/singerDetail'
 // 排行
 import TopList from '@/views/TopList'
 // 搜索
@@ -16,25 +16,21 @@ import Search from '@/views/Search'
 
 const baseRouters = [
   {
-    path: '/user',
-    component: User
-  },
-  {
     path: '/',
     component: layout,
     redirect: '/recommend',
     children: [
-      // {
-      //   path: '/login',
-      //   component: Login
-      // },
       {
         path: '/recommend',
         component: Recommend
       },
       {
         path: '/singer',
-        component: Singer
+        component: Singer,
+        children: [{
+          path: ':id',
+          component: SingerDetail
+        }]
       },
       {
         path: '/top-list',
@@ -45,6 +41,10 @@ const baseRouters = [
         component: Search
       }
     ]
+  },
+  {
+    path: '/user',
+    component: User
   }
 ]
 

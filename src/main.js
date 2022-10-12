@@ -10,14 +10,17 @@ import '@/assets/styles/index.scss'
 import installSvgIcon from '@/icons/index'
 // 导入loading指令
 import installLoading from '@/components/base/Loading/directive'
-
+import installEmpty from '@/components/base/Empty/directive'
 const app = createApp(App)
 // 全局注册SvgIcon
 installSvgIcon(app)
 // 注册loading指令
 installLoading(app)
-
+// 注册empty指令
+installEmpty(app)
+// 使用store
 app.use(store)
+// 使用路由
 app.use(router)
 // 图片懒加载
 app.use(lazyPlugin, {

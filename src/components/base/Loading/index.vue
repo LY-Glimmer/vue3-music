@@ -7,7 +7,7 @@
   </div>
 </template>
 
-<script setup>
+<script setup >
 import { defineExpose, ref } from 'vue'
 // 加载时的文本
 const title = ref('加载中...')

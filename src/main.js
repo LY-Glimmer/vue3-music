@@ -1,9 +1,12 @@
 import { createApp } from 'vue'
+import App from './App.vue'
 // 图片懒加载
 import lazyPlugin from 'vue3-lazy'
-import App from './App.vue'
+// 路由
 import router from './router'
-import store from './store'
+// 状态管理工具
+import pinia from '@/stores/index'
+
 // 引入全局样式文件
 import '@/assets/styles/index.scss'
 // 导入SvgIcon
@@ -18,8 +21,8 @@ installSvgIcon(app)
 installLoading(app)
 // 注册empty指令
 installEmpty(app)
-// 使用store
-app.use(store)
+// 使用pinia
+app.use(pinia)
 // 使用路由
 app.use(router)
 // 图片懒加载

@@ -8,12 +8,12 @@
 // element.classList 通过ClassList可以获取元素的全部类名
 // 通过ClassList.remove()可以删除元素的一个或多个类名
 // 通过ClassList.add()可以向元素添加一个或多个类名
-// 通过ClassList.lentgh可以获取到元素类名的数量
+// 通过ClassList.length可以获取到元素类名的数量
 // 通过ClassList.item(n)可以获取到元素类名索引为n的类名
 // 通过ClassList.toggle可以为元素切换类
 // 通过ClassList.contains(n)查看元素是否存在类名为"n"的类
 /**
- * 给元素添加一个calss
+ * 给元素添加一个class
  * @param {*} el 元素
  * @param {*} className 类名
  */
@@ -23,7 +23,7 @@ export const addClass = (el, className) => {
   }
 }
 /**
- * 给元素删除一个calss
+ * 给元素删除一个class
  * @param {*} el  元素
  * @param {*} className 类名
  */

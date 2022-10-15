@@ -3,11 +3,13 @@
   <Header></Header>
   <TabBar></TabBar>
   <router-view />
+  <Player></Player>
 </template>
 
 <script setup>
 import Header from '@/components/Header'
 import TabBar from '@/components/TabBar'
+import Player from '@/components/Player/Player.vue'
 </script>
 
 <style lang="scss" scoped>

@@ -65,7 +65,7 @@
 //   app.directive('loading', loadingDirective)
 // }
 
-import { createLoadingLikeDirective } from '@/utils/create-loading-like-directive'
+import { createLoadingLikeDirective } from '@/directive/base/create-loading-like-directive'
 import Loading from './index.vue'
 
 export default app => {

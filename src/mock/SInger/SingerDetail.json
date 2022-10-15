@@ -1,0 +1,38 @@
+// 歌手详情
+{
+  "code": 0,
+  "result": {
+    "songs": [
+      {
+        "id": 417552,
+        "mid": "002kCqZy0Vrb14",
+        "name": "周大侠",
+        "singer": "周杰伦",
+        "url": "",
+        "duration": 134,
+        "pic": "https://y.gtimg.cn/music/photo_new/T002R800x800M000004RBqID0tABKW.jpg?max_age=2592000",
+        "album": "大灌篮 电影原声带"
+      },
+      {
+        "id": 3223506,
+        "mid": "001tCE0T2vR5p5",
+        "name": "画沙",
+        "singer": "袁咏琳/周杰伦",
+        "url": "",
+        "duration": 273,
+        "pic": "https://y.gtimg.cn/music/photo_new/T002R800x800M000001PWEzJ1gmAJn.jpg?max_age=2592000",
+        "album": "袁咏琳 Cindy"
+      },
+      {
+        "id": 125579859,
+        "mid": "0047xKVG4f8mY5",
+        "name": "爱情废柴",
+        "singer": "周杰伦",
+        "url": "",
+        "duration": 268,
+        "pic": "https://y.gtimg.cn/mediastyle/music_v11/extra/default_300x300.jpg?max_age=31536000",
+        "album": ""
+      }
+    ]
+  }
+}

@@ -10,7 +10,7 @@ import { defineProps, ref, computed } from 'vue'
 import { getSingerDetail } from '@/service/singer'
 import { processSongs } from '@/service/song'
 import SingerList from '@/components/MusicList/index.vue'
-import { SING_KEY } from '@/utils/constant'
+import { SING_KEY } from '@/constant/constant'
 import storage from 'good-storage'
 import { useRoute, useRouter } from 'vue-router'
 const props = defineProps({

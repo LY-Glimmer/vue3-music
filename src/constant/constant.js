@@ -1,5 +1,6 @@
 // 常量
 export const SING_KEY = '__singer__' // 存储当前歌手到本地存储的key
+export const FAVORITE_KEY = '__favorite__' // 存储喜欢歌曲列表到本地存储的key
 // 播放模式
 export const PLAY_MODE = {
   sequence: 0, // 顺序播放

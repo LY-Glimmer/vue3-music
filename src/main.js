@@ -12,8 +12,8 @@ import '@/assets/styles/index.scss'
 // 导入SvgIcon
 import installSvgIcon from '@/icons/index'
 // 导入loading指令
-import installLoading from '@/components/base/Loading/directive'
-import installEmpty from '@/components/base/Empty/directive'
+import installLoading from '@/directive/Loading'
+import installEmpty from '@/directive/Empty'
 const app = createApp(App)
 // 全局注册SvgIcon
 installSvgIcon(app)

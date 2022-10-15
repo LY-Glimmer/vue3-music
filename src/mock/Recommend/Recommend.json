@@ -1,0 +1,112 @@
+// 首页轮播图和热门歌单推荐
+{
+  "code": 0,
+  "result": {
+    "sliders": [
+      {
+        "id": "8634892409",
+        "pic": "https://y.gtimg.cn/music/common/upload/MUSIC_FOCUS/4472731.png",
+        "link": "https://y.qq.com/n/yqq/playlist/8634892409.html"
+      },
+      {
+        "id": "31304897",
+        "pic": "https://y.gtimg.cn/music/common/upload/MUSIC_FOCUS/4469733.png",
+        "link": "https://y.qq.com/n/yqq/album/002QR5ir0t5Ie6.html"
+      },
+      {
+        "id": "31280118",
+        "pic": "https://y.gtimg.cn/music/common/upload/MUSIC_FOCUS/4471444.jpg",
+        "link": "https://y.qq.com/n/yqq/album/000iwGNz0WhqF5.html"
+      },
+      {
+        "id": "31335228",
+        "pic": "https://y.gtimg.cn/music/common/upload/MUSIC_FOCUS/4472515.jpg",
+        "link": "https://y.qq.com/n/yqq/album/004XfA490c4oiO.html"
+      },
+      {
+        "id": "31246757",
+        "pic": "https://y.gtimg.cn/music/common/upload/MUSIC_FOCUS/4472319.jpg",
+        "link": "https://y.qq.com/n/yqq/album/002AsLiX1BZNjq.html"
+      },
+      {
+        "id": "31329839",
+        "pic": "https://y.gtimg.cn/music/common/upload/MUSIC_FOCUS/4472002.jpg",
+        "link": "https://y.qq.com/n/yqq/album/004DGloh3rJdZC.html"
+      }
+    ],
+    "albums": [
+      {
+        "id": 7328419661,
+        "username": "我同事的嘴很甜",
+        "title": "「中国风纯音」倚栏听风，如梦如醉",
+        "pic": "http://qpic.y.qq.com/music_cover/UROl51JnIAk9Ipxmv4b86p2XypfBWg9b4Iye05cvocqqRGerh6nhyA/300?n=1"
+      },
+      {
+        "id": 4149582982,
+        "username": "豆沙",
+        "title": "全民K歌翻唱热歌榜盘点",
+        "pic": "http://qpic.y.qq.com/music_cover/Z7haT1p6eeic63oTvdlNb7xoHMYjBDlQict0ccSicdRpgLTicqoLHqtf9g/300?n=1"
+      },
+      {
+        "id": 7694980059,
+        "username": "拜托来场热恋.",
+        "title": "优质翻唱♪心动久了自然会沦陷",
+        "pic": "http://qpic.y.qq.com/music_cover/BpSXicibROAqDTsNP7wS16cr3dS8qsWRDEV3mXP3eib4nQun1mZXiafahg/300?n=1"
+      },
+      {
+        "id": 7679982959,
+        "username": "仙晚",
+        "title": "脸红警告·宝藏rapper的撩人情话",
+        "pic": "http://qpic.y.qq.com/music_cover/FZN9m5MCZXiaJfw00k0CyQmmibo80oNRCHrOPbYibTjYw9rHHy4lqk86A/300?n=1"
+      },
+      {
+        "id": 8171247553,
+        "username": "君said",
+        "title": "『翻唱片段』藏进我的温柔乡",
+        "pic": "http://qpic.y.qq.com/music_cover/cpM9UGMv7jGHdOR7vCoMEQWcw4KH7f0pMuVhqibKC5Bwiabh3ialTNwfg/300?n=1"
+      },
+      {
+        "id": 7777533725,
+        "username": "玖九9",
+        "title": "嗨曲 | 前方场面已经Hold不住了",
+        "pic": "http://qpic.y.qq.com/music_cover/ciasd4H0Fk83ukIpabgeZbFMgHpnfpcBJbibOrvibOE8rgGXFuuPIRg3iasBSkYDnTYM/300?n=1"
+      },
+      {
+        "id": 7672997462,
+        "username": "King、",
+        "title": "【古风】踏山临水，寻你一世光辉",
+        "pic": "http://qpic.y.qq.com/music_cover/Zw2YOaibBt2ZU8oXO98aCZicnpXR5wfl2Spy3icMhNquEu6Q75ZHn6dYA/300?n=1"
+      },
+      {
+        "id": 7616560475,
+        "username": "独享一个世界",
+        "title": "中文嗨曲：跟着音乐的节奏摇起来",
+        "pic": "http://qpic.y.qq.com/music_cover/5UBRCUicwlKnVGYlOibaP8QlZHnwPtXOkicdnUtErV1fVjrWE4CPzHrtw/300?n=1"
+      },
+      {
+        "id": 7522458197,
+        "username": "777Heather.",
+        "title": "站内收藏量过百万的欧美热曲",
+        "pic": "http://qpic.y.qq.com/music_cover/vx5GslecvHoyW2PMx0QlibfuwpzV2vdPryA8J2gXlO9jxoMLjCVschQ/300?n=1"
+      },
+      {
+        "id": 8075336924,
+        "username": "孤酒",
+        "title": "90后回忆 | MP3时代的流行歌曲",
+        "pic": "http://qpic.y.qq.com/music_cover/I2ZdwiaF8XY3CVB1y18cmH6dVjiaC6hprhowF1emvMrTFIxCibB04GH5A/300?n=1"
+      },
+      {
+        "id": 7929852916,
+        "username": "某某某",
+        "title": "热情终被辜负，智者不入爱河。",
+        "pic": "http://qpic.y.qq.com/music_cover/XoUWK5NfeicDO2hXLbrvqtcQgJjg1j9OXt2mbuBd54IBHLbQP1UaICg/300?n=1"
+      },
+      {
+        "id": 7933060208,
+        "username": "青云巅",
+        "title": "BGM | 战歌起，抱歉我要起飞了！",
+        "pic": "http://qpic.y.qq.com/music_cover/ia2O8X6S6ibPES8OgRQVCAfWy3iaZpklu3joVVTswY6g7ePTzzhZhRFOQ/300?n=1"
+      }
+    ]
+  }
+}

@@ -3,8 +3,8 @@
  **/
 
 /**
- * 随机算法
- * @param {*} source Array
+ * 洗牌算法
+ * @param {*} source Array 返回一个被打乱的数组
  */
 export const randomPlay = (source) => {
   const arr = source.slice()

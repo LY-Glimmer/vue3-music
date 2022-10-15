@@ -15,7 +15,7 @@
 <script setup>
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
-import { SING_KEY } from '@/utils/constant'
+import { SING_KEY } from '@/constant/constant'
 import storage from 'good-storage'
 // Api
 import { getSingerList } from '@/service/singer'

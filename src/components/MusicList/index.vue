@@ -143,7 +143,7 @@ const goBack = () => {
 // 选择了某一首歌
 const playerStore = usePlayerStore()
 const selectSong = ({ song, index }) => {
-  playerStore.setPlayer({
+  playerStore.setSequencePlayer({
     list: props.songs,
     index
   })

@@ -1,6 +1,6 @@
 <template>
   <ul class="song-list">
-    <li @click="selectItem(song)" class="item" v-for="(song, index) in songs" :key="song.id">
+    <li @click="selectItem(song,index)" class="item" v-for="(song, index) in songs" :key="song.id">
       <div class="rank">
         <span>{{ getRankText(index) }}</span>
       </div>
@@ -13,13 +13,14 @@
 </template>
 
 <script setup>
-import { defineProps } from 'vue'
+import { defineProps, defineEmits } from 'vue'
 defineProps({
   songs: {
     type: Array,
     required: true
   }
 })
+const emit = defineEmits(['select'])
 // 处理索引
 const getRankText = (index) => {
   return index + 1
@@ -29,7 +30,9 @@ const getDesc = (song) => {
   return `${song.singer}·${song.album}`
 }
 // 点击列表项
-const selectItem = () => { }
+const selectItem = (song, index) => {
+  emit('select', { song, index })
+}
 </script>
 
 <style lang="scss" scoped>

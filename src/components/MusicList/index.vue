@@ -6,18 +6,18 @@
     </div>
     <h1 class="title" ref="titleRef">{{ title }}</h1>
     <div class="bg-image" :style="bgImageStyle" ref="bgImageRef">
-      <!-- <div class="play-btn-wrapper" @click="play">
-        <div class="play-btn">
+      <div class="play-btn-wrapper" :style="playBtnStyle">
+        <div @click="randomPlayAll" class="play-btn" v-show="songs.length > 0">
           <i class="icon-play"></i>
           <span class="text">随机播放全部</span>
         </div>
-      </div> -->
+      </div>
       <div class="filter" :style="filterStyle"></div>
     </div>
     <Scroll @scroll="onScroll" class="list" v-loading="loading" v-empty:[emptyText]="isEmpty" :probeType="3"
       :style="scrollStyle">
       <div class="song-list-wrapper">
-        <SongList :songs="songs"></SongList>
+        <SongList @select="selectSong" :songs="songs"></SongList>
       </div>
     </Scroll>
   </div>
@@ -28,6 +28,7 @@ import { defineProps, computed, ref, onMounted } from 'vue'
 import SongList from '@/components/base/SongList/index.vue'
 import Scroll from '@/components/Scroll'
 import { useRouter } from 'vue-router'
+import { usePlayerStore } from '@/stores/player'
 const props = defineProps({
   // 歌手的名字
   title: {
@@ -111,6 +112,13 @@ const filterStyle = computed(() => {
     backdropFilter: `blur(${blur}px)`
   }
 })
+// 随机播放按钮样式
+const playBtnStyle = computed(() => {
+  return {
+    // 滚动距离大于最大滚动距离时候 隐藏随机播放按钮
+    display: scrollY.value > maxTranslateY.value ? 'none' : 'block'
+  }
+})
 // 数据是不是空的
 const isEmpty = computed(() => {
   return !props.loading && !props.songs.length
@@ -131,6 +139,20 @@ const onScroll = (pos) => {
 // 返回按钮被点击
 const goBack = () => {
   router.back()
+}
+// 选择了某一首歌
+const playerStore = usePlayerStore()
+const selectSong = ({ song, index }) => {
+  playerStore.setPlayer({
+    list: props.songs,
+    index
+  })
+}
+// 随机播放全部
+const randomPlayAll = () => {
+  playerStore.setRandomPlayer({
+    list: props.songs
+  })
 }
 </script>
 

@@ -1,6 +1,6 @@
 <template>
   <ul class="song-list">
-    <li class="item" v-for="(song, index) in songs" :key="song.id">
+    <li @click="selectItem(song)" class="item" v-for="(song, index) in songs" :key="song.id">
       <div class="rank">
         <span>{{ getRankText(index) }}</span>
       </div>
@@ -20,12 +20,16 @@ defineProps({
     required: true
   }
 })
+// 处理索引
 const getRankText = (index) => {
   return index + 1
 }
+// 组合歌手和歌曲
 const getDesc = (song) => {
   return `${song.singer}·${song.album}`
 }
+// 点击列表项
+const selectItem = () => { }
 </script>
 
 <style lang="scss" scoped>

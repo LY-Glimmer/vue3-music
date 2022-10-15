@@ -1,5 +1,4 @@
 <template>
-  <div @click="changeName">{{ store.name}}</div>
   <router-view />
 </template>
 

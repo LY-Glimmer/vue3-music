@@ -14,6 +14,17 @@
       </div>
       <!-- 操作按钮 -->
       <div class="bottom">
+        <!-- 进度条 -->
+        <div class="progress-wrapper">
+          <!-- 已播放时间 -->
+          <span class="time time-l">{{formatTime(currentTime)}}</span>
+          <!-- 进度 -->
+          <div class="progress-bar-wrapper">
+            <progressBar :progress="progress"></progressBar>
+          </div>
+          <!-- 总时间 -->
+          <span class="time time-r">{{formatTime(currentSong.duration)}}</span>
+        </div>
         <div class="operators">
           <!-- 切换播放状态 -->
           <div class="icon i-left">
@@ -39,13 +50,16 @@
       </div>
     </div>
     <!-- 音乐播放 -->
-    <audio ref="audioRef" @pause="pause" @canplay="ready" @error="error"></audio>
+    <audio ref="audioRef" @pause="pause" @canplay="ready" @error="error" @timeupdate="updateTime"></audio>
   </div>
 </template>
 
 <script setup>
+import progressBar from './components/progress-bar.vue'
 import { ref, computed, watch } from 'vue'
 import { usePlayerStore } from '@/stores/player'
+// 处理时间
+import { formatTime } from '@/utils/tool'
 // 处理播放模式
 import { useMode } from './useMode'
 // 处理是否喜欢
@@ -55,6 +69,8 @@ const playerStore = usePlayerStore()
 const audioRef = ref(null)
 // 控制歌曲是否已经就绪
 const isSongReady = ref(false)
+// 已播放时间
+const currentTime = ref(0)
 
 // 当前播放器状态
 const fullScreen = computed(() => {
@@ -72,17 +88,24 @@ const playIcon = computed(() => {
 const disableCls = computed(() => {
   return isSongReady.value ? '' : 'disable'
 })
+// 当前播放的进度
+const progress = computed(() => {
+  return currentTime.value / currentSong.value.duration
+})
 
 // 监听当前音乐的变化
 watch(currentSong, (newSong) => {
   if (!newSong.id || !newSong.url) return
   // 歌曲发生变化改变isSongReady要为false
   isSongReady.value = false
+  // 歌曲发生变化的时候当前播放时间要重置
+  currentTime.value = 0
   // 替换歌曲url
   audioRef.value.src = newSong.url
   // 播放歌曲
   audioRef.value.play()
 })
+
 // 监听播放状态
 watch(() => playerStore.playing, (newPlaying) => {
   // 如果歌曲没有就绪
@@ -153,7 +176,10 @@ const next = () => {
 const error = () => {
   isSongReady.value = true
 }
-
+// 监听歌曲的播放时间
+const updateTime = (event) => {
+  currentTime.value = event.target.currentTime
+}
 // hooks
 /**
  * 切换播放状态

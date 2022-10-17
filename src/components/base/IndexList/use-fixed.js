@@ -65,7 +65,7 @@ export const useFixed = (props) => {
     listHeightsVal.push(height)
     // 遍历DOM的子元素 记录高度
     Array.from(list).forEach(item => {
-      height += item.clientHeight
+      height += Math.ceil(item.clientHeight)
       listHeightsVal.push(height)
     })
   }

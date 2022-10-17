@@ -1,6 +1,7 @@
 <!-- 列表组件 -->
 <template>
   <Scroll ref="scrollRef" @scroll="onScroll" class="index-list" :probeType="3">
+    <!-- 列表 -->
     <ul ref="groupRef">
       <li v-for="group in data" :key="group.title" class="group">
         <h2 ref="rr" class="title">{{group.title}}</h2>
@@ -12,9 +13,11 @@
         </ul>
       </li>
     </ul>
+    <!--固定标题-->
     <div class="fixed" v-show="fixedTitle" :style="fixedStyle">
       <div class="fixed-title" ref="fixedTitleRef">{{fixedTitle}}</div>
     </div>
+    <!--右侧切换-->
     <div @touchstart.stop.prevent="onShortcutTouchStart" @touchmove.stop.prevent="onShortcutTouchMove"
       @touchend.stop.prevent class="shortcut">
       <ul ref="ulRef">

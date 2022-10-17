@@ -6,7 +6,7 @@ export const useShortcut = (props, groupRef) => {
   // 获取li拿到高度
   const ulRef = ref(null)
   const LI_HEIGHT = computed(() => {
-    return ulRef.value.children[0].clientHeight || 18
+    return Math.ceil(ulRef.value.children[0].clientHeight)
   })
   // 收集手指触摸的坐标
   const touch = {}

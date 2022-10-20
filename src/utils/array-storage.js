@@ -1,3 +1,9 @@
+/*
+ * @Author: LY_Glimmer
+ * @Date: 2022-10-17 13:56:48
+ * @Last Modified by:   LY_Glimmer
+ * @Last Modified time: 2022-10-17 13:56:48
+ */
 import storage from 'good-storage'
 // 添加一个元素
 const inertArray = (arr, val, compare) => {

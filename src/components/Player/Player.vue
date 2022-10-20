@@ -20,7 +20,8 @@
           <span class="time time-l">{{formatTime(currentTime)}}</span>
           <!-- 进度 -->
           <div class="progress-bar-wrapper">
-            <progressBar :progress="progress"></progressBar>
+            <progressBar @progressChanging="onProgressChanging" @progressChanged="onProgressChanged"
+              :progress="progress"></progressBar>
           </div>
           <!-- 总时间 -->
           <span class="time time-r">{{formatTime(currentSong.duration)}}</span>
@@ -50,7 +51,8 @@
       </div>
     </div>
     <!-- 音乐播放 -->
-    <audio ref="audioRef" @pause="pause" @canplay="ready" @error="error" @timeupdate="updateTime"></audio>
+    <audio ref="audioRef" @pause="pause" @canplay="ready" @error="error" @timeupdate="updateTime"
+      @ended="onEnd"></audio>
   </div>
 </template>
 
@@ -58,12 +60,14 @@
 import progressBar from './components/progress-bar.vue'
 import { ref, computed, watch } from 'vue'
 import { usePlayerStore } from '@/stores/player'
+import { PLAY_MODE } from '@/constant/constant'
 // 处理时间
 import { formatTime } from '@/utils/tool'
 // 处理播放模式
 import { useMode } from './useMode'
 // 处理是否喜欢
 import { useFavorite } from './useFavorite'
+// 播放器的配置
 const playerStore = usePlayerStore()
 // 音乐DOM
 const audioRef = ref(null)
@@ -71,7 +75,8 @@ const audioRef = ref(null)
 const isSongReady = ref(false)
 // 已播放时间
 const currentTime = ref(0)
-
+// 防止播放器进度条拖动的时候来回跳
+const progressChanging = ref(false)
 // 当前播放器状态
 const fullScreen = computed(() => {
   return playerStore.fullScreen
@@ -104,6 +109,8 @@ watch(currentSong, (newSong) => {
   audioRef.value.src = newSong.url
   // 播放歌曲
   audioRef.value.play()
+  // 更改播放状态
+  playerStore.playing = true
 })
 
 // 监听播放状态
@@ -137,11 +144,12 @@ const loop = () => {
   // 从头开始播放
   audioElement.currentTime = 0
   audioElement.play()
+  playerStore.playing = true
 }
 // 点击了上一首
 const prev = () => {
   // 如果列表中没有歌曲或者歌曲没有就绪
-  if (playerStore.playList.length === 0 || !isSongReady.value) return
+  if (!playerStore.playList.length || !isSongReady.value) return
   // 如果列表中就一首歌曲 那么执行循环播放
   if (playerStore.playList.length === 1) return loop()
   // 歌曲的索引-1
@@ -150,15 +158,11 @@ const prev = () => {
   if (playerStore.currentIndex === -1) {
     playerStore.currentIndex = playerStore.playList.length - 1
   }
-  // 处理播放按钮 为打开状态
-  if (!playerStore.playing) {
-    playerStore.playing = true
-  }
 }
 // 点击了下一首
 const next = () => {
   // 如果列表中没有歌曲或者歌曲没有就绪
-  if (playerStore.playList.length === 0 || !isSongReady.value) return
+  if (!playerStore.playList.length || !isSongReady.value) return
   // 如果列表中就一首歌曲 那么执行循环播放
   if (playerStore.playList.length === 1) return loop()
   // 歌曲的索引+1
@@ -167,19 +171,51 @@ const next = () => {
   if (playerStore.currentIndex === playerStore.playList.length) {
     playerStore.currentIndex = 0
   }
-  // 处理播放按钮 为打开状态
-  if (!playerStore.playing) {
-    playerStore.playing = true
+}
+// 歌曲播放完成
+const onEnd = () => {
+  currentTime.value = 0
+  // 如果是循环播放就从头开始播放 否则就切换到下一首
+  if (playerStore.playMode === PLAY_MODE.loop) {
+    loop()
+  } else {
+    next()
   }
 }
+
 // 歌曲出错了
 const error = () => {
   isSongReady.value = true
 }
 // 监听歌曲的播放时间
 const updateTime = (event) => {
-  currentTime.value = event.target.currentTime
+  // 拖动中的改变当前时间优先级 大于 拖动中的时候歌曲正常播放改变当前时间的优先级
+  if (!progressChanging.value) {
+    currentTime.value = event.target.currentTime
+  }
 }
+
+/**
+ * 进度条
+ **/
+// 拖动中
+const onProgressChanging = (progress) => {
+  // 拖动中的时候这个值为true
+  progressChanging.value = true
+  // 当前歌曲要在哪里开始播放
+  currentTime.value = currentSong.value.duration * progress
+}
+// 拖动结束
+const onProgressChanged = (progress) => {
+  // 拖动完成之后为false
+  progressChanging.value = false
+  // 结束的时候真正修改歌曲播放时间
+  audioRef.value.currentTime = currentTime.value = currentSong.value.duration * progress
+  if (!playerStore.playing) {
+    playerStore.playing = true
+  }
+}
+
 // hooks
 /**
  * 切换播放状态
@@ -189,6 +225,7 @@ const { modeIcon, changeMode } = useMode()
  * 切换喜欢与不喜欢
  **/
 const { getFavoriteIcon, toggleFavorite } = useFavorite()
+
 </script>
 
 <style lang="scss" scoped>
@@ -387,7 +424,6 @@ const { getFavoriteIcon, toggleFavorite } = useFavorite()
           font-size: $font-size-small;
           flex: 0 0 40px;
           line-height: 30px;
-          width: 40px;
 
           &.time-l {
             text-align: left;

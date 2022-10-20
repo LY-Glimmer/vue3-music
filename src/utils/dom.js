@@ -1,9 +1,9 @@
-/**
- * @name: 封装一些操作DOM的方法
- * @description:
- * @author: LY_Glimmer
- * @time: 2022.10.08
- **/
+/*
+ * @Author: LY_Glimmer
+ * @Date: 2022-10-17 13:56:39
+ * @Last Modified by: LY_Glimmer
+ * @Last Modified time: 2022-10-17 13:57:01
+ */
 
 // element.classList 通过ClassList可以获取元素的全部类名
 // 通过ClassList.remove()可以删除元素的一个或多个类名

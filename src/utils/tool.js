@@ -1,7 +1,9 @@
-/**
- * 封装一些方法
- **/
-
+/*
+ * @Author: LY_Glimmer
+ * @Date: 2022-10-17 13:56:19
+ * @Last Modified by:   LY_Glimmer
+ * @Last Modified time: 2022-10-17 13:56:19
+ */
 /**
  * 洗牌算法
  * @param {*} source Array 返回一个被打乱的数组

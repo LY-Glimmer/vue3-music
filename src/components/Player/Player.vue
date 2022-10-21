@@ -12,6 +12,16 @@
         <h1 class="title">{{currentSong.name}}</h1>
         <h2 class="subtitle">{{currentSong.singer}}</h2>
       </div>
+      <!-- 唱片 -->
+      <div class="middle">
+        <div class="middle-l">
+          <div ref="cdWrapperRef" class="cd-wrapper">
+            <div ref="cdRef" class="cd">
+              <img ref="cdImageRef" :class="cdClass" class="image" :src="currentSong.pic">
+            </div>
+          </div>
+        </div>
+      </div>
       <!-- 操作按钮 -->
       <div class="bottom">
         <!-- 进度条 -->
@@ -67,6 +77,8 @@ import { formatTime } from '@/utils/tool'
 import { useMode } from './useMode'
 // 处理是否喜欢
 import { useFavorite } from './useFavorite'
+// 处理cd相关逻辑
+import { useCd } from './useCd'
 // 播放器的配置
 const playerStore = usePlayerStore()
 // 音乐DOM
@@ -225,7 +237,10 @@ const { modeIcon, changeMode } = useMode()
  * 切换喜欢与不喜欢
  **/
 const { getFavoriteIcon, toggleFavorite } = useFavorite()
-
+/**
+ * 唱片的相关逻辑
+ **/
+const { cdClass, cdImageRef, cdRef } = useCd()
 </script>
 
 <style lang="scss" scoped>
@@ -333,7 +348,7 @@ const { getFavoriteIcon, toggleFavorite } = useFavorite()
             }
 
             .playing {
-              animation: rotate 20s linear infinite
+              animation: rotate 20s linear infinite;
             }
           }
         }

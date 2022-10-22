@@ -6,10 +6,10 @@
 ```
 ### 安装依赖 
 ```
-yarn
+npm i
 ```
 ###  运行项目
 ```
-yarn serve
+npm run serve
 ```
 为练习Vue3语法的项目。

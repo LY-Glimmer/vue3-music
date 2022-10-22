@@ -2,7 +2,7 @@
   <div class="player">
     <div class="normal-player" v-show="fullScreen">
       <div class="background">
-        <img :src="currentSong.pic" alt="">
+        <img :src="currentSong.pic">
       </div>
       <!-- 顶部 -->
       <div class="top">
@@ -12,15 +12,35 @@
         <h1 class="title">{{currentSong.name}}</h1>
         <h2 class="subtitle">{{currentSong.singer}}</h2>
       </div>
-      <!-- 唱片 -->
+      <!-- 中间 -->
       <div class="middle">
-        <div class="middle-l">
+        <!-- 唱片 -->
+        <div class="middle-l" style="display:none;">
           <div ref="cdWrapperRef" class="cd-wrapper">
             <div ref="cdRef" class="cd">
               <img ref="cdImageRef" :class="cdClass" class="image" :src="currentSong.pic">
             </div>
           </div>
+          <!-- 唱片当前播放的歌词 -->
+          <div class="playing-lyric-wrapper">
+            <div class="playing-lyric">{{playingLyric}}</div>
+          </div>
         </div>
+        <!-- 歌词 -->
+        <Scroll class="middle-r" ref="lyricScrollRef">
+          <div class="lyric-wrapper">
+            <div v-if="currentLyric" ref="lyricListRef">
+              <p class="text" :class="{'current': currentLineNum ===index}" v-for="(line,index) in currentLyric.lines"
+                :key="line.num">
+                {{line.txt}}
+              </p>
+            </div>
+            <!-- 无歌词情况 -->
+            <div class="pure-music">
+              <p>{{pureMusicLyric}}</p>
+            </div>
+          </div>
+        </Scroll>
       </div>
       <!-- 操作按钮 -->
       <div class="bottom">
@@ -69,16 +89,19 @@
 <script setup>
 import progressBar from './components/progress-bar.vue'
 import { ref, computed, watch } from 'vue'
+import Scroll from '@/components/Scroll/index.vue'
 import { usePlayerStore } from '@/stores/player'
 import { PLAY_MODE } from '@/constant/constant'
 // 处理时间
 import { formatTime } from '@/utils/tool'
-// 处理播放模式
+// 处理播放模式 Hooks
 import { useMode } from './useMode'
-// 处理是否喜欢
+// 处理是否喜欢 Hooks
 import { useFavorite } from './useFavorite'
-// 处理cd相关逻辑
+// 处理cd相关逻辑 Hooks
 import { useCd } from './useCd'
+// 处理歌词 Hooks
+import { useLyric } from './useLyric'
 // 播放器的配置
 const playerStore = usePlayerStore()
 // 音乐DOM
@@ -129,7 +152,18 @@ watch(currentSong, (newSong) => {
 watch(() => playerStore.playing, (newPlaying) => {
   // 如果歌曲没有就绪
   if (!isSongReady.value) return
-  newPlaying ? audioRef.value.play() : audioRef.value.pause()
+  // 如果处于播放状态
+  if (newPlaying) {
+    // 歌曲播放
+    audioRef.value.play()
+    // 歌词播放
+    playLyric()
+  } else {
+    // 歌曲暂停
+    audioRef.value.pause()
+    // 歌词暂停
+    stopLyric()
+  }
 })
 
 // 关闭
@@ -149,6 +183,7 @@ const pause = () => {
 const ready = () => {
   if (isSongReady.value) return
   isSongReady.value = true
+  playLyric()
 }
 // 只有一首歌曲的时候 从头开始播放
 const loop = () => {
@@ -216,6 +251,9 @@ const onProgressChanging = (progress) => {
   progressChanging.value = true
   // 当前歌曲要在哪里开始播放
   currentTime.value = currentSong.value.duration * progress
+  // 当拖动的过程中先播放歌词 然后停止播放
+  playLyric()
+  stopLyric()
 }
 // 拖动结束
 const onProgressChanged = (progress) => {
@@ -226,21 +264,46 @@ const onProgressChanged = (progress) => {
   if (!playerStore.playing) {
     playerStore.playing = true
   }
+  // 当拖动结束的时候 播放歌词
+  playLyric()
 }
 
 // hooks
 /**
  * 切换播放状态
  **/
-const { modeIcon, changeMode } = useMode()
+const {
+  modeIcon,
+  changeMode
+} = useMode()
 /**
  * 切换喜欢与不喜欢
  **/
-const { getFavoriteIcon, toggleFavorite } = useFavorite()
+const {
+  getFavoriteIcon,
+  toggleFavorite
+} = useFavorite()
 /**
  * 唱片的相关逻辑
  **/
-const { cdClass, cdImageRef, cdRef } = useCd()
+const {
+  cdClass,
+  cdImageRef,
+  cdRef
+} = useCd()
+/**
+ * 处理歌词
+ **/
+const {
+  currentLyric,
+  currentLineNum,
+  playLyric,
+  lyricScrollRef,
+  lyricListRef,
+  stopLyric,
+  pureMusicLyric,
+  playingLyric
+} = useLyric({ isSongReady, currentTime })
 </script>
 
 <style lang="scss" scoped>
@@ -363,7 +426,7 @@ const { cdClass, cdImageRef, cdRef } = useCd()
             height: 20px;
             line-height: 20px;
             font-size: $font-size-medium;
-            color: $color-text-l;
+            color: $color-text-ll ;
           }
         }
       }

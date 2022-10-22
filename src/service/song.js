@@ -21,8 +21,8 @@ export function processSongs(songs) {
   })
 }
 
+// 获取歌词
 const lyricMap = {}
-
 export function getLyric(song) {
   if (song.lyric) {
     return Promise.resolve(song.lyric)

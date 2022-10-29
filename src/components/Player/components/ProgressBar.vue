@@ -1,3 +1,4 @@
+<!-- 大播放器的进度条 -->
 <template>
   <div class="progress-bar" @click="onProgressClick" ref="progressBarRef">
     <!-- 无颜色的容器 -->
@@ -14,7 +15,7 @@
 </template>
 
 <script setup>
-import { defineProps, ref, watch, computed, defineEmits } from 'vue'
+import { defineProps, ref, watch, computed, defineEmits, defineExpose } from 'vue'
 const props = defineProps({
   // 进度
   progress: {
@@ -38,8 +39,7 @@ const btnStyle = computed(() => {
 })
 // 监听进度变化
 watch(() => props.progress, (newProgress) => {
-  const barWidth = progressBarRef.value.clientWidth - progressBtnRef.value.offsetWidth
-  offset.value = barWidth * newProgress
+  setOffset(newProgress)
 })
 // 记录触摸的数据
 const touch = ref({
@@ -96,6 +96,15 @@ const onProgressClick = (e) => {
   // 通知player组件
   emit('progressChanged', progress)
 }
+// 外部去设置进度条
+const setOffset = (newProgress) => {
+  const barWidth = progressBarRef.value.clientWidth - progressBtnRef.value.offsetWidth
+  offset.value = barWidth * newProgress
+}
+
+defineExpose({
+  setOffset
+})
 </script>
 
 <style lang="scss" scoped>

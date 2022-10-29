@@ -1,5 +1,6 @@
+<!-- 播放器 -->
 <template>
-  <div class="player">
+  <div class="player" v-show="playerStore.playList.length !== 0">
     <div class="normal-player" v-show="fullScreen">
       <div class="background">
         <img :src="currentSong.pic">
@@ -55,8 +56,8 @@
           <span class="time time-l">{{ formatTime(currentTime) }}</span>
           <!-- 进度 -->
           <div class="progress-bar-wrapper">
-            <progressBar @progressChanging="onProgressChanging" @progressChanged="onProgressChanged"
-              :progress="progress"></progressBar>
+            <progressBar ref="progressBarRef" @progressChanging="onProgressChanging"
+              @progressChanged="onProgressChanged" :progress="progress"></progressBar>
           </div>
           <!-- 总时间 -->
           <span class="time time-r">{{ formatTime(currentSong.duration) }}</span>
@@ -85,6 +86,8 @@
         </div>
       </div>
     </div>
+    <!-- 迷你播放器 -->
+    <MiniPlayer :togglePlay="togglePlay" :progress="progress"></MiniPlayer>
     <!-- 音乐播放 -->
     <audio ref="audioRef" @pause="pause" @canplay="ready" @error="error" @timeupdate="updateTime"
       @ended="onEnd"></audio>
@@ -92,11 +95,13 @@
 </template>
 
 <script setup>
-import progressBar from './components/progress-bar.vue'
-import { ref, computed, watch } from 'vue'
+import progressBar from './components/ProgressBar.vue'
+import MiniPlayer from './MIniPayer.vue'
+import { ref, computed, watch, nextTick } from 'vue'
 import Scroll from '@/components/Scroll/index.vue'
 import { usePlayerStore } from '@/stores/player'
 import { PLAY_MODE } from '@/constant/constant'
+
 // 处理时间
 import { formatTime } from '@/utils/tool'
 // 处理播放模式 Hooks
@@ -170,6 +175,16 @@ watch(() => playerStore.playing, (newPlaying) => {
     audioRef.value.pause()
     // 歌词暂停
     stopLyric()
+  }
+})
+
+// 监听播放器显示隐藏状态
+const progressBarRef = ref(null)
+watch(() => playerStore.fullScreen, (newFullScroll) => {
+  if (newFullScroll) {
+    nextTick(() => {
+      progressBarRef.value.setOffset(progress.value)
+    })
   }
 })
 

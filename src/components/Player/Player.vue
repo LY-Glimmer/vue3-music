@@ -9,13 +9,13 @@
         <div class="back" @click="goBack">
           <i class="icon-back"></i>
         </div>
-        <h1 class="title">{{currentSong.name}}</h1>
-        <h2 class="subtitle">{{currentSong.singer}}</h2>
+        <h1 class="title">{{ currentSong.name }}</h1>
+        <h2 class="subtitle">{{ currentSong.singer }}</h2>
       </div>
       <!-- 中间 -->
-      <div class="middle">
+      <div class="middle" @touchstart="onMiddleTouchStart" @touchmove="onMiddleTouchMove" @touchend="onMiddleTouchEnd">
         <!-- 唱片 -->
-        <div class="middle-l" style="display:none;">
+        <div class="middle-l" :style="middleLeftStyle">
           <div ref="cdWrapperRef" class="cd-wrapper">
             <div ref="cdRef" class="cd">
               <img ref="cdImageRef" :class="cdClass" class="image" :src="currentSong.pic">
@@ -23,38 +23,43 @@
           </div>
           <!-- 唱片当前播放的歌词 -->
           <div class="playing-lyric-wrapper">
-            <div class="playing-lyric">{{playingLyric}}</div>
+            <div class="playing-lyric">{{ playingLyric }}</div>
           </div>
         </div>
         <!-- 歌词 -->
-        <Scroll class="middle-r" ref="lyricScrollRef">
+        <Scroll class="middle-r" :style="middleRightStyle" ref="lyricScrollRef">
           <div class="lyric-wrapper">
             <div v-if="currentLyric" ref="lyricListRef">
-              <p class="text" :class="{'current': currentLineNum ===index}" v-for="(line,index) in currentLyric.lines"
-                :key="line.num">
-                {{line.txt}}
+              <p class="text" :class="{ 'current': currentLineNum === index }"
+                v-for="(line, index) in currentLyric.lines" :key="line.num">
+                {{ line.txt }}
               </p>
             </div>
             <!-- 无歌词情况 -->
             <div class="pure-music">
-              <p>{{pureMusicLyric}}</p>
+              <p>{{ pureMusicLyric }}</p>
             </div>
           </div>
         </Scroll>
       </div>
       <!-- 操作按钮 -->
       <div class="bottom">
+        <!-- 切换 -->
+        <div class="dot-wrapper">
+          <span class="dot" :class="{ 'active': currentShow === 'cd' }"></span>
+          <span class="dot" :class="{ 'active': currentShow === 'lyric' }"></span>
+        </div>
         <!-- 进度条 -->
         <div class="progress-wrapper">
           <!-- 已播放时间 -->
-          <span class="time time-l">{{formatTime(currentTime)}}</span>
+          <span class="time time-l">{{ formatTime(currentTime) }}</span>
           <!-- 进度 -->
           <div class="progress-bar-wrapper">
             <progressBar @progressChanging="onProgressChanging" @progressChanged="onProgressChanged"
               :progress="progress"></progressBar>
           </div>
           <!-- 总时间 -->
-          <span class="time time-r">{{formatTime(currentSong.duration)}}</span>
+          <span class="time time-r">{{ formatTime(currentSong.duration) }}</span>
         </div>
         <div class="operators">
           <!-- 切换播放状态 -->
@@ -102,6 +107,8 @@ import { useFavorite } from './useFavorite'
 import { useCd } from './useCd'
 // 处理歌词 Hooks
 import { useLyric } from './useLyric'
+// 处理切换唱片和歌词 Hooks
+import { useMiddleInterActive } from './useMiddleInterActive'
 // 播放器的配置
 const playerStore = usePlayerStore()
 // 音乐DOM
@@ -304,6 +311,17 @@ const {
   pureMusicLyric,
   playingLyric
 } = useLyric({ isSongReady, currentTime })
+/**
+ * 处理手指切换唱片和歌词
+ **/
+const {
+  currentShow,
+  middleLeftStyle,
+  middleRightStyle,
+  onMiddleTouchStart,
+  onMiddleTouchMove,
+  onMiddleTouchEnd
+} = useMiddleInterActive()
 </script>
 
 <style lang="scss" scoped>

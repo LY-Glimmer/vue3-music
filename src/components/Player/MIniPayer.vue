@@ -3,7 +3,7 @@
   <transition name="mini">
     <div class="mini-player" @click="showNormalPlayer" v-show="!playerStore.fullScreen">
       <!-- 图片 -->
-      <div class="cd-wrapper">
+      <div class="cd-wrapper" ref="cdWrapperRef">
         <div ref="cdRef" class="cd">
           <img ref="cdImageRef" width="40" height="40" :class="cdClass" :src="playerStore.currentSong.pic">
         </div>
@@ -34,6 +34,8 @@ import { useCd } from './useCd'
 import { defineProps, computed } from 'vue'
 // 手指滑动切歌
 import { useMiniSlider } from './useMiniSlider'
+// 唱片的动画
+import { useAnimation } from './useAnimation'
 defineProps({
   // 进度
   progress: {
@@ -68,6 +70,10 @@ const {
  * 手指滑动切歌
  **/
 const { sliderWrapperRef } = useMiniSlider()
+/**
+ * 唱片的动画
+ **/
+const { cdWrapperRef } = useAnimation()
 </script>
 
 <style lang="scss" scoped>

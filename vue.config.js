@@ -9,7 +9,6 @@ function resolve(dir) {
 module.exports = {
   chainWebpack(config) {
     // 配置处理Svg的loader Start
-    // 处理 i18n 的警告
     config.module
       .rule('svg')
       .exclude.add(resolve('src/icons'))
@@ -50,5 +49,5 @@ module.exports = {
     }
   },
   productionSourceMap: false,
-  publicPath: process.env.NODE_ENV === 'production' ? '/music-next/' : '/'
+  publicPath: process.env.NODE_ENV === 'production' ? '/' : '/'
 }

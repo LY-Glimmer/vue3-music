@@ -23,6 +23,12 @@
           <i class="icon-mini" :class="miniPlayIcon" @click.stop="togglePlay"></i>
         </ProgressCircle>
       </div>
+      <!-- 歌曲列表 -->
+      <div class="control" @click.stop="showPlaylist">
+        <i class="icon-playlist"></i>
+      </div>
+      <!-- 播放列表 -->
+      <PlayList ref="playListRef"></PlayList>
     </div>
   </transition>
 </template>
@@ -31,7 +37,8 @@
 import ProgressCircle from './components/ProgressCircle.vue'
 import { usePlayerStore } from '@/stores/player'
 import { useCd } from './useCd'
-import { defineProps, computed } from 'vue'
+import { ref, defineProps, computed } from 'vue'
+import PlayList from './components/PlayList.vue'
 // 手指滑动切歌
 import { useMiniSlider } from './useMiniSlider'
 // 唱片的动画
@@ -48,7 +55,12 @@ defineProps({
 })
 
 const playerStore = usePlayerStore()
-
+// 播放列表ref
+const playListRef = ref(null)
+// 显示播放列表
+const showPlaylist = () => {
+  playListRef.value.show()
+}
 // 点击了迷你播放器
 const showNormalPlayer = () => {
   playerStore.fullScreen = true
@@ -156,7 +168,7 @@ const { cdWrapperRef } = useAnimation()
       position: relative;
       top: -2px;
       font-size: 28px;
-      color: $color-theme-d;
+      color: $color-theme;
     }
 
     .icon-mini {

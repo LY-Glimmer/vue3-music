@@ -26,7 +26,7 @@
 <script setup>
 import { defineProps, computed, ref, onMounted } from 'vue'
 import SongList from '@/components/base/SongList/index.vue'
-import Scroll from '@/components/Scroll'
+import Scroll from '@/components/WrapScroll/index'
 import { useRouter } from 'vue-router'
 import { usePlayerStore } from '@/stores/player'
 const props = defineProps({
@@ -97,8 +97,10 @@ const bgImageStyle = computed(() => {
 })
 // 滚动层的样式
 const scrollStyle = computed(() => {
+  const bottom = playerStore.playList.length === 0 ? '0' : '60px'
   return {
-    top: imgHeight.value + 'px'
+    top: imgHeight.value + 'px',
+    bottom
   }
 })
 // 遮罩层的样式

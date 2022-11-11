@@ -34,9 +34,9 @@ export const usePlayerStore = defineStore('player', {
     // 选择播放
     setSequencePlayer({ list, index }) {
       // 设置原始播放列表
-      this.sequenceList = list
+      this.sequenceList = [...list]
       // 设置真实播放列表
-      this.playList = list
+      this.playList = [...list]
       // 设置播放器状态
       this.playing = true
       // 设置播放模式
@@ -49,7 +49,7 @@ export const usePlayerStore = defineStore('player', {
     // 随机播放
     setRandomPlayer({ list }) {
       // 设置原始播放列表
-      this.sequenceList = list
+      this.sequenceList = [...list]
       // 设置真实播放列表
       this.playList = randomPlay(list)
       // 设置播放器状态
@@ -72,7 +72,7 @@ export const usePlayerStore = defineStore('player', {
           this.playList = randomPlay(this.sequenceList)
           break
         case PLAY_MODE.sequence:
-          this.playList = this.sequenceList
+          this.playList = [...this.sequenceList]
           break
       }
       // 切换模式但是不切换歌曲

@@ -35,7 +35,7 @@
 import { ref, computed } from 'vue'
 import { getRecommend } from '@/service/recommend'
 import Slider from '@/components/base/Slider'
-import Scroll from '@/components/Scroll/index'
+import Scroll from '@/components/WrapScroll/index'
 // 轮播图数据
 const sliders = ref([])
 // 歌曲数据

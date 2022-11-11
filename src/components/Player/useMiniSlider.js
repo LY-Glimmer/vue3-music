@@ -2,7 +2,7 @@
  * @Author: LY_Glimmer
  * @Date: 2022-10-29 15:17:13
  * @Last Modified by: LY_Glimmer
- * @Last Modified time: 2022-10-29 16:42:05
+ * @Last Modified time: 2022-11-11 15:13:28
  */
 /**
  * 手指滑动切歌
@@ -59,6 +59,15 @@ export const useMiniSlider = () => {
       if (sliderVal && sliderShow.value) {
         // 跳到当前歌曲的索引
         sliderVal.goToPage(playerStore.currentIndex, 0, 0)
+      }
+    })
+
+    // 监听歌曲列表变化
+    watch(() => playerStore.playList.length, async (newList) => {
+      if (sliderVal && sliderShow.value && newList.length !== 0) {
+        await nextTick()
+        // 重新计算
+        sliderVal.refresh()
       }
     })
   })

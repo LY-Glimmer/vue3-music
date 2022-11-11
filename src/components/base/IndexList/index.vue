@@ -4,26 +4,26 @@
     <!-- 列表 -->
     <ul ref="groupRef">
       <li v-for="group in data" :key="group.title" class="group">
-        <h2 ref="rr" class="title">{{group.title}}</h2>
+        <h2 ref="rr" class="title">{{ group.title }}</h2>
         <ul>
           <li v-for="item in group.list" :key="item.id" class="item" @click="onItemClick(item)">
             <img class="avatar" v-lazy="item.pic">
-            <span class="name">{{item.name}}</span>
+            <span class="name">{{ item.name }}</span>
           </li>
         </ul>
       </li>
     </ul>
     <!--固定标题-->
     <div class="fixed" v-show="fixedTitle" :style="fixedStyle">
-      <div class="fixed-title" ref="fixedTitleRef">{{fixedTitle}}</div>
+      <div class="fixed-title" ref="fixedTitleRef">{{ fixedTitle }}</div>
     </div>
     <!--右侧切换-->
     <div @touchstart.stop.prevent="onShortcutTouchStart" @touchmove.stop.prevent="onShortcutTouchMove"
       @touchend.stop.prevent class="shortcut">
       <ul ref="ulRef">
         <li v-for="(item, index) in shortcutList" :key="item" :data-index="index" class="item"
-          :class="{'current':currentIndex===index}">
-          {{item}}
+          :class="{ 'current': currentIndex === index }">
+          {{ item }}
         </li>
       </ul>
     </div>
@@ -32,7 +32,7 @@
 
 <script setup>
 import { defineProps, defineEmits } from 'vue'
-import Scroll from '@/components/Scroll/index'
+import Scroll from '@/components/WrapScroll/index'
 import { useFixed } from './use-fixed'
 import { useShortcut } from './use-shortcut.js'
 

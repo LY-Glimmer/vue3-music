@@ -14,7 +14,9 @@ import TopList from '@/views/TopList'
 // 搜索
 import Search from '@/views/Search'
 // 推荐页面详情
-import Album from '@/views/Album'
+import Album from '@/views/Recommend/pages/Album.vue'
+// 排行页面详情
+import TopDetail from '@/views/TopList/pages/TopDetail.vue'
 
 const baseRouters = [
   {
@@ -44,7 +46,13 @@ const baseRouters = [
       },
       {
         path: '/top-list',
-        component: TopList
+        component: TopList,
+        children: [
+          {
+            path: ':id',
+            component: TopDetail
+          }
+        ]
       },
       {
         path: '/search',

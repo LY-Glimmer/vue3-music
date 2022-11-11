@@ -1,23 +1,29 @@
+<!-- 歌曲列表 -->
 <template>
   <ul class="song-list">
-    <li @click="selectItem(song,index)" class="item" v-for="(song, index) in songs" :key="song.id">
+    <li @click="selectItem(song, index)" class="item" v-for="(song, index) in songs" :key="song.id">
       <div class="rank">
-        <span>{{ getRankText(index) }}</span>
+        <span :class="rankCls">{{ getRankText(index) }}</span>
       </div>
       <div class="content">
-        <h2 class="name">{{song.name}}</h2>
-        <p class="desc">{{getDesc(song)}}</p>
+        <h2 class="name">{{ song.name }}</h2>
+        <p class="desc">{{ getDesc(song) }}</p>
       </div>
     </li>
   </ul>
 </template>
 
 <script setup>
+import { computed } from '@vue/reactivity'
 import { defineProps, defineEmits } from 'vue'
-defineProps({
+const props = defineProps({
   songs: {
     type: Array,
     required: true
+  },
+  rank: {
+    type: Boolean,
+    default: false
   }
 })
 const emit = defineEmits(['select'])
@@ -29,6 +35,10 @@ const getRankText = (index) => {
 const getDesc = (song) => {
   return `${song.singer}·${song.album}`
 }
+const rankCls = computed(() => {
+  return props.rank ? 'text' : ''
+})
+
 // 点击列表项
 const selectItem = (song, index) => {
   emit('select', { song, index })
@@ -55,18 +65,6 @@ const selectItem = (song, index) => {
         width: 25px;
         height: 24px;
         background-size: 25px 24px;
-
-        &.icon0 {
-          @include bg-image('first');
-        }
-
-        &.icon1 {
-          @include bg-image('second');
-        }
-
-        &.icon2 {
-          @include bg-image('third');
-        }
       }
 
       .text {

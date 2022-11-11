@@ -17,7 +17,7 @@
     <Scroll @scroll="onScroll" class="list" v-loading="loading" v-empty:[emptyText]="isEmpty" :probeType="3"
       :style="scrollStyle">
       <div class="song-list-wrapper">
-        <SongList @select="selectSong" :songs="songs"></SongList>
+        <SongList @select="selectSong" :songs="songs" :rank="rank"></SongList>
       </div>
     </Scroll>
   </div>
@@ -53,6 +53,10 @@ const props = defineProps({
   emptyText: {
     type: String,
     default: '抱歉，没有找到可播放的歌曲'
+  },
+  rank: {
+    type: Boolean,
+    default: false
   }
 })
 // 获取路由

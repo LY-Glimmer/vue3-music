@@ -22,5 +22,6 @@
 使用Vue3开发一个web音乐播放应用，练习Vue3语法。
 
 ## 项目运行
-npm i
+npm i 
+
 npm run serve

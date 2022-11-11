@@ -13,6 +13,8 @@ import SingerDetail from '@/views/Singer/pages/singerDetail'
 import TopList from '@/views/TopList'
 // 搜索
 import Search from '@/views/Search'
+// 推荐页面详情
+import Album from '@/views/Album'
 
 const baseRouters = [
   {
@@ -22,15 +24,23 @@ const baseRouters = [
     children: [
       {
         path: '/recommend',
-        component: Recommend
+        component: Recommend,
+        children: [
+          {
+            path: ':id',
+            component: Album
+          }
+        ]
       },
       {
         path: '/singer',
         component: Singer,
-        children: [{
-          path: ':id',
-          component: SingerDetail
-        }]
+        children: [
+          {
+            path: ':id',
+            component: SingerDetail
+          }
+        ]
       },
       {
         path: '/top-list',

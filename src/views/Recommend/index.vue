@@ -11,7 +11,7 @@
         <div class="recommend-list">
           <h1 class="list-title">热门歌单推荐</h1>
           <ul>
-            <li v-for="item in albums" class="item" :key="item.id">
+            <li @click="selectItem(item)" v-for="item in albums" class="item" :key="item.id">
               <div class="icon">
                 <img width="60" height="60" v-lazy="item.pic">
               </div>
@@ -28,18 +28,29 @@
         </div>
       </div>
     </scroll>
+    <!-- 推荐详情 -->
+    <router-view v-slot="{ Component }">
+      <transition appear name="slide">
+        <component :is="Component" :album="selectedAlbum" />
+      </transition>
+    </router-view>
   </div>
 </template>
 
 <script setup>
 import { ref, computed } from 'vue'
+import { useRouter } from 'vue-router'
 import { getRecommend } from '@/service/recommend'
 import Slider from '@/components/base/Slider'
 import Scroll from '@/components/WrapScroll/index'
+import storage from 'good-storage'
+import { ALBUM_KEY } from '@/constant/constant'
 // 轮播图数据
 const sliders = ref([])
 // 歌曲数据
 const albums = ref([])
+// 选中的推荐数据
+const selectedAlbum = ref(null)
 // loading的文本
 // const loadingText = '正在加载中...'
 // 获取数据
@@ -54,6 +65,15 @@ const getRecommendData = async () => {
 getRecommendData()
 // loading
 const loading = computed(() => !sliders.value.length && !albums.value.length)
+const router = useRouter()
+// 点击了推荐列表项
+const selectItem = (album) => {
+  selectedAlbum.value = album
+  storage.session.set(ALBUM_KEY, album)
+  router.push({
+    path: `/recommend/${album.id}`
+  })
+}
 </script>
 
 <style lang='scss' scoped>

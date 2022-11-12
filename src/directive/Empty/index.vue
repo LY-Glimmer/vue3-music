@@ -1,8 +1,7 @@
 <template>
   <div class="no-result">
     <div class="no-result-content">
-      <div class="icon"></div>
-      <p class="text">{{emptyText}}</p>
+      <p class="text">{{ emptyText }}</p>
     </div>
   </div>
 </template>
@@ -27,14 +26,6 @@ defineExpose({
 
   .no-result-content {
     text-align: center;
-
-    .icon {
-      width: 86px;
-      height: 90px;
-      margin: 0 auto;
-      @include bg-image('no-result');
-      background-size: 86px 90px;
-    }
 
     .text {
       margin-top: 30px;

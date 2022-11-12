@@ -35,12 +35,12 @@
             </transition-group>
           </Scroll>
           <!-- 添加 -->
-          <div class="list-add">
+          <!-- <div class="list-add">
             <div class="add" @click="showAddSong">
               <i class="icon-add"></i>
               <span class="text">添加歌曲到队列</span>
             </div>
-          </div>
+          </div> -->
           <!-- 关闭 -->
           <div class="list-footer" @click.stop="hide">
             <span>关闭</span>

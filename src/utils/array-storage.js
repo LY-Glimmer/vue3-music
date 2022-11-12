@@ -1,8 +1,8 @@
 /*
  * @Author: LY_Glimmer
  * @Date: 2022-10-17 13:56:48
- * @Last Modified by:   LY_Glimmer
- * @Last Modified time: 2022-10-17 13:56:48
+ * @Last Modified by: LY_Glimmer
+ * @Last Modified time: 2022-11-12 17:03:05
  */
 import storage from 'good-storage'
 // 添加一个元素
@@ -36,4 +36,10 @@ export const remove = (key, compare) => {
 // 加载数据
 export const load = (key) => {
   return storage.get(key, [])
+}
+
+// 清除
+export const clear = (key) => {
+  storage.remove(key)
+  return []
 }

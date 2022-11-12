@@ -2,7 +2,7 @@
  * 关于播放器的全局状态
  **/
 import { defineStore } from 'pinia'
-import { PLAY_MODE, FAVORITE_KEY } from '@/constant/constant'
+import { PLAY_MODE, FAVORITE_KEY, SEARCH_KEY } from '@/constant/constant'
 import { randomPlay } from '@/utils/tool'
 import { load } from '@/utils/array-storage'
 export const usePlayerStore = defineStore('player', {
@@ -21,7 +21,9 @@ export const usePlayerStore = defineStore('player', {
       // 当前播放索引
       currentIndex: 0,
       // 当前播放器打开状态 默认为收缩状态
-      fullScreen: false
+      fullScreen: false,
+      // 历史搜索记录
+      searchHistory: load(SEARCH_KEY)
     }
   },
   getters: {
